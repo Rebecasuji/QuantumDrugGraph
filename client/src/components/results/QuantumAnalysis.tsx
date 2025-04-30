@@ -14,8 +14,8 @@ export default function QuantumAnalysis({
 }: QuantumAnalysisProps) {
   // Prepare data for the performance comparison chart
   const performanceData = [
-    { name: 'Classical', value: 100 - improvementPercentage, fill: 'hsl(var(--chart-1))' },
-    { name: 'Quantum', value: 100, fill: 'hsl(var(--chart-2))' }
+    { name: 'Classical', value: 100 - improvementPercentage, fill: '#3D5A80' }, // Navy Blue
+    { name: 'Quantum', value: 100, fill: '#4ECDC4' } // Turquoise
   ];
 
   return (
@@ -41,9 +41,9 @@ export default function QuantumAnalysis({
               title="Quantum Circuit Utilization" 
               type="pie"
               data={[
-                { name: 'Feature Embedding', value: 40, fill: 'hsl(var(--chart-1))' },
-                { name: 'Quantum Processing', value: 35, fill: 'hsl(var(--chart-2))' },
-                { name: 'Measurement', value: 25, fill: 'hsl(var(--chart-3))' }
+                { name: 'Feature Embedding', value: 40, fill: '#FF6B6B' },   // Vibrant Red
+                { name: 'Quantum Processing', value: 35, fill: '#FFD166' },  // Yellow
+                { name: 'Measurement', value: 25, fill: '#6A0572' }          // Purple
               ]}
             />
             <div className="mt-3">

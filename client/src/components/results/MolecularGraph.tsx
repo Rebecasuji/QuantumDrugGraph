@@ -11,10 +11,10 @@ export default function MolecularGraph() {
             title="GNN Feature Importance" 
             type="bar"
             data={[
-              { name: 'Aromatic', value: 85, fill: 'hsl(var(--chart-1))' },
-              { name: 'Hydrogen Bond', value: 62, fill: 'hsl(var(--chart-2))' },
-              { name: 'Hydrophobic', value: 73, fill: 'hsl(var(--chart-3))' },
-              { name: 'Ring Structure', value: 91, fill: 'hsl(var(--chart-4))' }
+              { name: 'Aromatic', value: 85, fill: '#1A936F' },       // Green
+              { name: 'Hydrogen Bond', value: 62, fill: '#E76F51' },  // Orange 
+              { name: 'Hydrophobic', value: 73, fill: '#00BBF9' },    // Sky Blue
+              { name: 'Ring Structure', value: 91, fill: '#F15BB5' }  // Pink
             ]}
           />
           
@@ -22,8 +22,8 @@ export default function MolecularGraph() {
             title="Substructure Contributions" 
             type="pie"
             data={[
-              { name: 'Core', value: 65, fill: 'hsl(var(--chart-2))' },
-              { name: 'Functional Groups', value: 35, fill: 'hsl(var(--chart-3))' }
+              { name: 'Core', value: 65, fill: '#9B5DE5' },          // Lavender
+              { name: 'Functional Groups', value: 35, fill: '#F15BB5' } // Pink
             ]}
           />
           

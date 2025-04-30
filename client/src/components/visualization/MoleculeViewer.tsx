@@ -61,14 +61,19 @@ export default function MoleculeViewer({
           ref={containerRef} 
           className="h-[250px] w-full flex items-center justify-center"
         >
-          {/* 3D/2D viewer will be initialized here */}
+          {/* Static molecule image - no rotation */}
           <div className="text-center">
             {type === "3d" ? (
-              <img 
-                src="https://cdn.rcsb.org/images/structures/cf/1cfd/1cfd_assembly-1.jpeg" 
-                alt="Molecular visualization" 
-                className="max-h-full mx-auto rounded"
-              />
+              <div className="relative">
+                <img 
+                  src="https://cdn.rcsb.org/images/structures/cf/1cfd/1cfd_assembly-1.jpeg" 
+                  alt="Molecular visualization" 
+                  className="max-h-full mx-auto rounded"
+                />
+                <div className="absolute top-0 right-0 bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded">
+                  Static View
+                </div>
+              </div>
             ) : (
               <img 
                 src="https://pubchem.ncbi.nlm.nih.gov/image/imgsrv.fcgi?cid=2519&t=l" 
@@ -81,11 +86,7 @@ export default function MoleculeViewer({
         
         {showControls && (
           <div className="mt-4 flex justify-center space-x-4">
-            <Button variant="outline" size="sm" className="h-8">
-              <Rotate3d className="h-4 w-4 mr-1" />
-              Rotate
-            </Button>
-            <Button variant="outline" size="sm" className="h-8">
+            <Button variant="outline" size="sm" className="h-8" disabled>
               <Box className="h-4 w-4 mr-1" />
               Ball & Stick
             </Button>

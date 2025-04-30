@@ -24,7 +24,18 @@ export default function ChartDisplay({
   emptyMessage = "No data available",
   className
 }: ChartDisplayProps) {
-  const COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];
+  const COLORS = [
+    '#FF6B6B', // Vibrant Red
+    '#4ECDC4', // Turquoise
+    '#FFD166', // Yellow
+    '#6A0572', // Purple
+    '#1A936F', // Green
+    '#3D5A80', // Navy Blue
+    '#E76F51', // Orange
+    '#9B5DE5', // Lavender
+    '#F15BB5', // Pink
+    '#00BBF9', // Sky Blue
+  ];
   
   // Generate some placeholder data if none provided
   const placeholderData = [
