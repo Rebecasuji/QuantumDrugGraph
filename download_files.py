@@ -1,67 +1,33 @@
-
 import os
-import shutil
+import zipfile
+from datetime import datetime
 
-def create_directory_structure():
-    # Create main directories
-    directories = [
-        'attached_assets',
-        'client/src/components/molecules',
-        'client/src/components/results',
-        'client/src/components/ui',
-        'client/src/components/visualization',
-        'client/src/hooks',
-        'client/src/lib/utils',
-        'client/src/pages',
-        'server',
-        'shared'
-    ]
-    
-    for directory in directories:
-        os.makedirs(directory, exist_ok=True)
+def create_zip_file():
+    # Get current timestamp for unique filename
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    zip_filename = f"website_code_{timestamp}.zip"
 
-def copy_files():
-    # Copy all files while preserving directory structure
-    files_to_copy = [
-        ('attached_assets/gnn_model_fixed.pth', 'attached_assets/gnn_model_fixed.pth'),
-        ('client/index.html', 'client/index.html'),
-        # Add all source files
-        ('client/src/App.tsx', 'client/src/App.tsx'),
-        ('client/src/index.css', 'client/src/index.css'),
-        ('client/src/main.tsx', 'client/src/main.tsx'),
-        # Add component files
-        ('client/src/components/Footer.tsx', 'client/src/components/Footer.tsx'),
-        ('client/src/components/Header.tsx', 'client/src/components/Header.tsx'),
-        ('client/src/components/Layout.tsx', 'client/src/components/Layout.tsx'),
-        # Add all other files from your project structure
-        ('server/index.ts', 'server/index.ts'),
-        ('server/routes.ts', 'server/routes.ts'),
-        ('server/storage.ts', 'server/storage.ts'),
-        ('server/vite.ts', 'server/vite.ts'),
-        ('shared/schema.ts', 'shared/schema.ts'),
-        # Config files
-        ('.gitignore', '.gitignore'),
-        ('components.json', 'components.json'),
-        ('drizzle.config.ts', 'drizzle.config.ts'),
-        ('package.json', 'package.json'),
-        ('postcss.config.js', 'postcss.config.js'),
-        ('tailwind.config.ts', 'tailwind.config.ts'),
-        ('tsconfig.json', 'tsconfig.json'),
-        ('vite.config.ts', 'vite.config.ts')
-    ]
-    
-    for src, dest in files_to_copy:
-        try:
-            shutil.copy2(src, dest)
-            print(f"Copied: {src}")
-        except Exception as e:
-            print(f"Error copying {src}: {e}")
+    # Create a zip file
+    with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        # Walk through directories and add files
+        for root, dirs, files in os.walk('.'):
+            # Skip node_modules, git and other unnecessary directories
+            if any(x in root for x in ['/node_modules', '/.git', '/__pycache__', '/dist']):
+                continue
 
-def main():
-    print("Starting file download process...")
-    create_directory_structure()
-    copy_files()
-    print("Download complete! Check your local directory for the files.")
+            for file in files:
+                # Skip the zip file itself and large/binary files
+                if file.endswith('.zip') or file == 'gnn_model_fixed.pth':
+                    continue
+
+                file_path = os.path.join(root, file)
+                # Add file to zip with relative path
+                arcname = os.path.relpath(file_path, '.')
+                zipf.write(file_path, arcname)
+
+    print(f"Created zip file: {zip_filename}")
+    return zip_filename
 
 if __name__ == "__main__":
-    main()
+    zip_file = create_zip_file()
+    print(f"You can now download: {zip_file}")
